@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="es" class="light">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gestor de Finanzas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        base: "#67a1ff",
+                        card: "#FFFBF2",
+                        accent: "#FFC722",
+                        "base-dark": "#1c1c1c",
+                        "card-dark": "#3762c8",
+                    },
+                },
+            },
+        };
+    </script>
+    <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="bg-base dark:bg-base-dark text-neutral-900 dark:text-neutral-100 min-h-screen font-sans transition-colors overflow-x-hidden">
+    <header class="sticky top-0 z-40 w-full">
+        <nav class="nb bg-card dark:bg-card-dark rounded-b-xl px-4 py-2 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-2 font-black text-xl">
+                <span class="nb-sm bg-accent text-neutral-900 rounded-lg w-12 h-12 flex items-center justify-center">
+                    <img src="assets/logotipo.png" alt="Logo" class="w-10 h-10 object-contain">
+                </span>
+                <span>Finanzas</span>
+            </div>
+            <ul class="flex flex-wrap gap-2">
+                <li><button data-abrir="inicio" class="nb-btn bg-accent text-neutral-900 rounded-lg px-3 py-1 font-bold">Inicio</button></li>
+                <li><button data-abrir="actividad" class="nb-btn bg-card dark:bg-card-dark rounded-lg px-3 py-1 font-bold">Actividad</button></li>
+            </ul>
+            <div class="flex items-center gap-2">
+                <button id="btn-tema" class="nb-btn bg-accent rounded-lg p-2 flex items-center justify-center">
+                    <img src="assets/luna_icon.png" alt="Cambiar tema" class="w-6 h-6 object-contain">
+                </button>
+                <button id="btn-notificaciones" class="nb-btn bg-card dark:bg-card-dark rounded-lg w-10 h-10 relative text-xl" title="Ver Notificaciones">
+                    🔔
+                    <span id="badge-notificaciones" class="hidden absolute -top-2 -right-2 bg-red-500 text-white text-xs font-black rounded-full w-5 h-5 flex items-center justify-center border-2 border-neutral-900">!</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+    <main class="w-full max-w-6xl mx-auto mt-6 px-4 sm:px-6 lg:px-8 pb-24 relative overflow-hidden h-[85vh]">
+        <section id="ventana-inicio" class="ventana nb bg-card dark:bg-card-dark rounded-2xl w-full h-full overflow-y-auto absolute top-0 left-0 transition-transform duration-300">
+            <div class="bg-accent text-neutral-900 border-b-[3px] border-neutral-900 px-4 py-2">
+                <h2 class="font-black text-lg">Resumen General</h2>
+            </div>
+            <div class="p-5 space-y-6">
+                <div id="inicio-monedas" class="flex flex-wrap gap-2"></div>
+                <div class="flex flex-col gap-4">
+                    <div class="flex flex-wrap items-center justify-between gap-3 bg-white dark:bg-base-dark nb-sm p-4 rounded-xl">
+                        <h3 class="font-black text-xl">Rendimiento</h3>
+                        <div id="tabs-periodo" class="flex gap-2">
+                            <button data-periodo="semanal" class="nb-btn bg-accent text-neutral-900 rounded-lg px-3 py-1 font-bold text-sm">Semanal</button>
+                            <button data-periodo="mensual" class="nb-btn bg-card dark:bg-card-dark rounded-lg px-3 py-1 font-bold text-sm">Mensual</button>
+                            <button data-periodo="trimestral" class="nb-btn bg-card dark:bg-card-dark rounded-lg px-3 py-1 font-bold text-sm">Trimestral</button>
+                        </div>
+                    </div>
+                    <div class="grid gap-4 sm:grid-cols-3 h-[28rem] md:h-80 overflow-visible">
+                        <div class="nb-sm bg-white dark:bg-base-dark flex flex-col h-full rounded-xl border-[4px] border-green-500 overflow-visible">
+                            <div class="bg-green-300 text-neutral-900 p-3 border-b-[4px] border-neutral-900">
+                                <p class="font-bold text-xs uppercase tracking-wide">Ingresos totales</p>
+                                <p id="total-ingresos" class="text-xl md:text-2xl font-black truncate">—</p>
+                            </div>
+                            <div id="grafico-ingresos" class="flex-1 flex items-end gap-1 p-2 md:p-4 overflow-visible"></div>
+                        </div>
+                        <div class="nb-sm bg-white dark:bg-base-dark flex flex-col h-full rounded-xl border-[4px] border-red-500 overflow-visible">
+                            <div class="bg-red-300 text-neutral-900 p-3 border-b-[4px] border-neutral-900">
+                                <p class="font-bold text-xs uppercase tracking-wide">Gastos totales</p>
+                                <p id="total-gastos" class="text-xl md:text-2xl font-black truncate">—</p>
+                            </div>
+                            <div id="grafico-gastos" class="flex-1 flex items-end gap-1 p-2 md:p-4 overflow-visible"></div>
+                        </div>
+                        <div class="nb-sm bg-white dark:bg-base-dark flex flex-col h-full rounded-xl border-[4px] border-accent overflow-visible">
+                            <div class="bg-accent text-neutral-900 p-3 border-b-[4px] border-neutral-900">
+                                <p class="font-bold text-xs uppercase tracking-wide">Balance neto</p>
+                                <p id="balance-neto" class="text-xl md:text-2xl font-black truncate">—</p>
+                            </div>
+                            <div id="grafico-balance" class="flex-1 flex items-end gap-1 p-2 md:p-4 overflow-visible"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="ventana-actividad" class="ventana nb bg-card dark:bg-card-dark rounded-2xl w-full h-full overflow-y-auto absolute top-0 left-0 transition-transform duration-300 translate-x-full">
+            <div class="bg-accent text-neutral-900 border-b-[3px] border-neutral-900 px-4 py-2">
+                <h2 class="font-black text-lg">Actividad y Categorías</h2>
+            </div>
+            <div class="p-5 space-y-4">
+                <div id="tabs-monedas" class="flex flex-wrap gap-2"></div>
+                <div id="lista-categorias" class="space-y-4 pb-10"></div>
+                <button data-accion="nueva-categoria" class="nb-btn w-full bg-accent text-neutral-900 rounded-lg py-3 font-black text-lg">+ NUEVA CATEGORÍA</button>
+            </div>
+        </section>
+    </main>
+    <div id="papelera" class="hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-50 nb bg-red-500 text-white rounded-2xl px-10 py-4 text-center transition-transform">
+        <p class="text-4xl drop-shadow-md">🗑️</p>
+        <p class="font-black text-sm uppercase tracking-wide mt-1">Soltá acá para eliminar</p>
+    </div>
+    <dialog id="modal" class="nb bg-card dark:bg-card-dark text-neutral-900 dark:text-neutral-100 rounded-2xl p-6 w-[min(92vw,28rem)] backdrop:bg-black/60 backdrop:backdrop-blur-sm z-50">
+        <form class="space-y-4 flex flex-col"></form>
+    </dialog>
+    <script src="js/classes/Almacenamiento.js"></script>
+    <script src="js/classes/Moneda.js"></script>
+    <script src="js/classes/Transaccion.js"></script>
+    <script src="js/classes/Interfaz.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

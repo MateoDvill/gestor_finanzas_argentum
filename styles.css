@@ -1,0 +1,107 @@
+/* Estilos Neobrutalistas Base */
+.nb {
+  border: 3px solid #111;
+  box-shadow: 5px 5px 0 0 #111;
+}
+.nb-sm {
+  border: 3px solid #111;
+  box-shadow: 3px 3px 0 0 #111;
+}
+.nb-btn {
+  border: 3px solid #111;
+  box-shadow: 3px 3px 0 0 #111;
+  transition:
+    transform 0.1s,
+    box-shadow 0.1s;
+  cursor: pointer;
+}
+.nb-btn:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 0 #111;
+}
+.nb-btn:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0px 0px 0 0 #111;
+}
+.nb-input {
+  border: 3px solid #111;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  background: #fff;
+  color: #111;
+  width: 100%;
+  font-weight: bold;
+}
+.dark .nb,
+.dark .nb-sm,
+.dark .nb-btn,
+.dark .nb-input {
+  border-color: #f5f0e1;
+}
+.dark .nb {
+  box-shadow: 5px 5px 0 0 #000;
+}
+.dark .nb-sm,
+.dark .nb-btn {
+  box-shadow: 3px 3px 0 0 #000;
+}
+.dark .nb-input {
+  background: #374151;
+  color: #f5f0e1;
+}
+#papelera.sobre {
+  background: #dc2626;
+  transform: translateX(-50%) scale(1.15);
+  box-shadow: 8px 8px 0 0 #111;
+}
+.arrastrando {
+  opacity: 0.4;
+  border-style: dashed !important;
+}
+.categoria-destino {
+  outline: 3px dashed #67a1ff;
+  outline-offset: 4px;
+}
+.swatch {
+  display: block;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 3px solid #111;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+input[type="radio"]:checked + .swatch {
+  box-shadow: 3px 3px 0 0 #111;
+  transform: scale(1.2);
+}
+.dark .swatch {
+  border-color: #f5f0e1;
+}
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #111;
+  border-radius: 4px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #f5f0e1;
+}
+#tooltip-grafico {
+  position: fixed;
+  z-index: 99999;
+  display: none;
+  pointer-events: none;
+  background: #111;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: bold;
+  white-space: nowrap;
+  box-shadow: 2px 2px 0 #555;
+}
